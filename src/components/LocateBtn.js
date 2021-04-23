@@ -1,3 +1,5 @@
+import locateBtnStyle from "../styles/locateBtn.module.css"
+
 const Locate = ({ panTo }) => {
   const handleClick = () => {
     navigator.geolocation.getCurrentPosition(
@@ -12,7 +14,7 @@ const Locate = ({ panTo }) => {
     )
   }
   return (
-    <div className="locate-btn">
+    <div className={locateBtnStyle.locateBtn}>
       <button onClick={handleClick}>
         <img src="https://freesvg.org/img/CompassRose.png" alt="" />
       </button>

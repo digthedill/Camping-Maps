@@ -1,7 +1,6 @@
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
-  clearSuggestions,
 } from "use-places-autocomplete"
 import {
   Combobox,
@@ -11,10 +10,10 @@ import {
   ComboboxOption,
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
+import searchStyle from "../styles/search.module.css"
 
-const Search = ({ panTo }) => {
+const Search = ({ panTo, isSignedIn }) => {
   const {
-    ready,
     value,
     suggestions: { status, data },
     setValue,
@@ -30,7 +29,7 @@ const Search = ({ panTo }) => {
   })
 
   return (
-    <div className="search">
+    <div className={searchStyle.searchBar}>
       <Combobox
         onSelect={async (address) => {
           setValue(address, false)
@@ -49,8 +48,8 @@ const Search = ({ panTo }) => {
           onChange={(e) => {
             setValue(e.target.value)
           }}
-          disabled={!ready}
-          placeholder="Enter Address"
+          disabled={!isSignedIn}
+          placeholder={isSignedIn ? "Search for an area" : "Log in to use"}
         />
         <ComboboxPopover>
           {status === "OK" && (

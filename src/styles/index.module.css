@@ -1,0 +1,16 @@
+.mainLogo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+
+.searchContainer {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
