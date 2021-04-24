@@ -1,5 +1,8 @@
 import { useState } from "react"
+import Geocode from "react-geocode"
 import formStyles from "../styles/forms.module.css"
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
 const CampsiteInfoForm = ({
   setToggleCreateCampsiteInfo,
@@ -8,6 +11,16 @@ const CampsiteInfoForm = ({
   eventMarker,
 }) => {
   const [description, setDescription] = useState("")
+  const [address, setAddress] = useState("")
+
+  if (eventMarker) {
+    Geocode.fromLatLng(eventMarker.latLng.lat(), eventMarker.latLng.lng()).then(
+      (res) => {
+        const address = res.results[0].formatted_address
+        setAddress(address)
+      }
+    )
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -19,11 +32,11 @@ const CampsiteInfoForm = ({
         time: new Date(),
         user: user.displayName,
         description,
+        address,
       },
     ])
     setToggleCreateCampsiteInfo(false)
   }
-  console.log(user)
 
   return (
     <div className={formStyles.container}>
@@ -36,8 +49,8 @@ const CampsiteInfoForm = ({
             X
           </button>
         </div>
-
-        <h1>Tell Us About the Site</h1>
+        <h2>Lets hear about</h2>
+        <h3>{address}</h3>
         <label htmlFor="description">Description</label>
         <textarea
           id="description"

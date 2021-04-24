@@ -1,6 +1,7 @@
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
+  clearSuggestions,
 } from "use-places-autocomplete"
 import {
   Combobox,

@@ -14,3 +14,19 @@
   transform: translateX(-50%);
   z-index: 10;
 }
+.parkImgContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  max-width: 300px;
+}
+.parkImgContainer img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.parkImg {
+  padding: 0.1rem;
+  object-fit: cover;
+  /* padding: 0.3rem; */
+}
