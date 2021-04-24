@@ -1,0 +1,23 @@
+.parkImgContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  max-width: 300px;
+}
+
+.description {
+  padding: 0.7rem 0;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.parkImgContainer img {
+  max-width: 300px;
+  max-height: 400px;
+}
+
+.parkImg {
+  padding: 0.1rem;
+  object-fit: contain;
+  /* padding: 0.3rem; */
+}

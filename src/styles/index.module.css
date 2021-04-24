@@ -1,12 +1,15 @@
-.mainLogo {
+.legendContainer {
   position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 10;
   margin: 0;
-  padding: 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.85);
 }
-
+.legendContainer h1 {
+  margin-bottom: 1rem;
+}
 .searchContainer {
   position: absolute;
   top: 1rem;
@@ -14,19 +17,10 @@
   transform: translateX(-50%);
   z-index: 10;
 }
-.parkImgContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  max-width: 300px;
-}
-.parkImgContainer img {
-  max-width: 400px;
-  max-height: 400px;
-}
 
-.parkImg {
-  padding: 0.1rem;
-  object-fit: cover;
-  /* padding: 0.3rem; */
+.legendItem {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.3rem 0;
 }

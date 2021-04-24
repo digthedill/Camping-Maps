@@ -1,5 +1,4 @@
 const extractLatLng = (str, dir) => {
-  console.log(str)
   if (str) {
     const arr = str.split(":")
     let lat = parseFloat(arr[1].split(",")[0])
