@@ -24,3 +24,8 @@
   align-items: center;
   padding: 0.3rem 0;
 }
+
+.subtitle {
+  font-size: 0.75rem;
+  color: #333;
+}

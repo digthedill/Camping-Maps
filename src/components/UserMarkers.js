@@ -13,7 +13,7 @@ const UserMarkers = ({ setMarkers, markers, isSignedIn, setSelected }) => {
 
     //to prevent memory leak
     return () => unsubscribe()
-  }, [])
+  }, [setMarkers])
 
   return markers
     ? markers.map((marker) => (

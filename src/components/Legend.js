@@ -41,7 +41,7 @@ const Legend = ({ isSignedIn, setCreateMarkerMode, createMarkerMode }) => {
             </label>
             <p>Create Mode</p>
           </div>
-          <p>(Toggle to save a campsite)</p>
+          <p className={indexStyle.subtitle}>(Toggle to save a campsite)</p>
         </>
       ) : null}
     </div>

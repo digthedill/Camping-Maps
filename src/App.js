@@ -48,24 +48,27 @@ function App() {
   )
 
   useEffect(() => {
-    fetch(
-      `https://developer.nps.gov/api/v1/campgrounds?&api_key=${process.env.REACT_APP_NPS_API_KEY}&limit=700`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setParks(
-          data.data.map((park) => {
-            return {
-              id: park.id,
-              latLng: park.latLong,
-              name: park.name,
-              images: park.images,
-              url: park.url,
-              description: park.description,
-            }
-          })
-        )
-      })
+    const subscribe = () =>
+      fetch(
+        `https://developer.nps.gov/api/v1/campgrounds?&api_key=${process.env.REACT_APP_NPS_API_KEY}&limit=700`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setParks(
+            data.data.map((park) => {
+              return {
+                id: park.id,
+                latLng: park.latLong,
+                name: park.name,
+                images: park.images,
+                url: park.url,
+                description: park.description,
+              }
+            })
+          )
+        })
+
+    return subscribe()
   }, [])
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -115,6 +118,8 @@ function App() {
                 setToggleCreateCampsiteInfo={setToggleCreateCampsiteInfo}
                 eventMarker={eventMarker}
                 user={user}
+                selected={selected}
+                setSelected={setSelected}
               />
             ) : null}
 
@@ -153,7 +158,12 @@ function App() {
               />
 
               {/**Info Window using user input */}
-              <UserInfoWindow selected={selected} setSelected={setSelected} />
+              <UserInfoWindow
+                selected={selected}
+                setSelected={setSelected}
+                user={user}
+                setToggleCreateCampsiteInfo={setToggleCreateCampsiteInfo}
+              />
             </GoogleMap>
           </div>
         )

@@ -1,21 +1,32 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Geocode from "react-geocode"
+import { v4 as uuidv4 } from "uuid"
 import { db } from "../firebase/firebaseIndex"
 import formStyles from "../styles/forms.module.css"
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
-// on submit create firestore db
-// instead on markers array -> source from database
+/**
+ * 
+ *setup support for update document
+
+ pre-populate description textarea with value from db
+
+ figure out second field (is it needed?)
+ */
 
 const CampsiteInfoForm = ({
   setToggleCreateCampsiteInfo,
   user,
   eventMarker,
+  selected,
+  setSelected,
 }) => {
   const [description, setDescription] = useState("")
   const [address, setAddress] = useState("")
+  const [editMode, setEditMode] = useState(false)
 
+  // eventMarker is the event attribute from onClick gMaps
   if (eventMarker) {
     Geocode.fromLatLng(eventMarker.latLng.lat(), eventMarker.latLng.lng()).then(
       (res) => {
@@ -24,12 +35,35 @@ const CampsiteInfoForm = ({
       }
     )
   }
-  // possible for users to upload photos?
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    if (selected) {
+      setEditMode(true)
+      setDescription(selected.description)
+    }
+  }, [selected])
 
+  // bind escape key with exit
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.keyCode === 27) {
+        setToggleCreateCampsiteInfo(false)
+      }
+    }
+    window.addEventListener("keydown", handleEsc)
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc)
+    }
+  }, [])
+
+  // possible for users to upload photos?
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let id = uuidv4()
     db.collection("markers")
-      .add({
+      .doc(id)
+      .set({
+        id,
         lat: eventMarker.latLng.lat(),
         lng: eventMarker.latLng.lng(),
         time: new Date(),
@@ -38,8 +72,8 @@ const CampsiteInfoForm = ({
         description,
         address,
       })
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id)
+      .then(() => {
+        console.log("Document written with ID: ")
       })
       .catch((error) => {
         console.error("Error adding document: ", error)
@@ -48,9 +82,23 @@ const CampsiteInfoForm = ({
     setToggleCreateCampsiteInfo(false)
   }
 
+  const handleUpdate = (e) => {
+    e.preventDefault()
+    db.collection("markers")
+      .doc(selected.id)
+      .set({
+        ...selected,
+        description,
+      })
+    setSelected(null)
+    setToggleCreateCampsiteInfo(false)
+  }
   return (
     <div className={formStyles.container}>
-      <form className={formStyles.form} onSubmit={handleSubmit}>
+      <form
+        className={formStyles.form}
+        onSubmit={editMode ? handleUpdate : handleSubmit}
+      >
         <div className={formStyles.exitContainer}>
           <button
             className={formStyles.exit}
@@ -68,10 +116,14 @@ const CampsiteInfoForm = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label htmlFor="other">Other</label>
-        <textarea id="other" />
+        {/**<label htmlFor="other">Other</label>
+        <textarea id="other" /> */}
         <div className={formStyles.submitContainer}>
-          <input type="submit" value="Submit" className={formStyles.submit} />
+          <input
+            type="submit"
+            value={editMode ? "Update" : "Submit"}
+            className={formStyles.submit}
+          />
         </div>
       </form>
     </div>
