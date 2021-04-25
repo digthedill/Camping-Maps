@@ -26,20 +26,23 @@ const Legend = ({ isSignedIn, setCreateMarkerMode, createMarkerMode }) => {
         </div>
       </div>
       {isSignedIn ? (
-        <div className={indexStyle.legendItem}>
-          <label>
-            <Switch
-              onChange={() => setCreateMarkerMode(!createMarkerMode)}
-              checked={createMarkerMode}
-              checkedIcon={false}
-              uncheckedIcon={false}
-              width={40}
-              height={20}
-              handleDiameter={15}
-            />
-          </label>
-          <p>Create Mode</p>
-        </div>
+        <>
+          <div className={indexStyle.legendItem}>
+            <label>
+              <Switch
+                onChange={() => setCreateMarkerMode(!createMarkerMode)}
+                checked={createMarkerMode}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                width={40}
+                height={20}
+                handleDiameter={15}
+              />
+            </label>
+            <p>Create Mode</p>
+          </div>
+          <p>(Toggle to save a campsite)</p>
+        </>
       ) : null}
     </div>
   )

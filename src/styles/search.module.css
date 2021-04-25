@@ -5,7 +5,12 @@
 
 .searchBar input {
   font-size: 1.4rem;
-  padding: 0.4rem 0.9rem;
+  padding: 0.6rem 1.3rem;
+  border: 0.5px solid #444;
+  border-radius: 1rem;
+}
+.searchBar input:focus {
+  border: none;
 }
 
 .searchBar p {

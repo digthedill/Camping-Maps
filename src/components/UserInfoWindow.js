@@ -1,5 +1,7 @@
 import { InfoWindow } from "@react-google-maps/api"
-import { formatRelative } from "date-fns"
+
+// if uid === user.uid
+// unlock editing and delete functions
 
 const UserInfoWindow = ({ selected, setSelected }) => {
   return selected ? (
@@ -12,7 +14,10 @@ const UserInfoWindow = ({ selected, setSelected }) => {
         <h4>User: {selected.user}</h4>
         <p>{selected.description}</p>
 
-        <p>On: {formatRelative(selected.time, new Date())}</p>
+        <p>
+          On:{" "}
+          {new Date(selected.time.seconds * 1000).toLocaleDateString("en-US")}
+        </p>
       </div>
     </InfoWindow>
   ) : null

@@ -1,13 +1,16 @@
 import { useState } from "react"
 import Geocode from "react-geocode"
+import { db } from "../firebase/firebaseIndex"
 import formStyles from "../styles/forms.module.css"
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
+// on submit create firestore db
+// instead on markers array -> source from database
+
 const CampsiteInfoForm = ({
   setToggleCreateCampsiteInfo,
   user,
-  setMarkers,
   eventMarker,
 }) => {
   const [description, setDescription] = useState("")
@@ -21,20 +24,27 @@ const CampsiteInfoForm = ({
       }
     )
   }
-
-  const handleSubmit = (e) => {
+  // possible for users to upload photos?
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setMarkers((current) => [
-      ...current,
-      {
+
+    db.collection("markers")
+      .add({
         lat: eventMarker.latLng.lat(),
         lng: eventMarker.latLng.lng(),
         time: new Date(),
         user: user.displayName,
+        uid: user.uid,
         description,
         address,
-      },
-    ])
+      })
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id)
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error)
+      })
+
     setToggleCreateCampsiteInfo(false)
   }
 

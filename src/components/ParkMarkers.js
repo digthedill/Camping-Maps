@@ -6,7 +6,7 @@ const ParkMarkers = ({ parks, isSignedIn, setSelectedPark }) => {
     ? parks.map((park) => {
         const lat = extractLatLng(park.latLng, "lat")
         const lng = extractLatLng(park.latLng, "lng")
-        if (lat && lng)
+        if (lat && lng) {
           // prevents error from faulty nps return
           return (
             <Marker
@@ -29,6 +29,7 @@ const ParkMarkers = ({ parks, isSignedIn, setSelectedPark }) => {
               }}
             />
           )
+        } else return
       })
     : null
 }

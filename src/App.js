@@ -90,7 +90,7 @@ function App() {
 
   const panTo = useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng })
-    mapRef.current.setZoom(14)
+    mapRef.current.setZoom(12)
   }, [])
 
   if (loadError) return "Error loading maps"
@@ -113,7 +113,6 @@ function App() {
             {toggleCreateCampsiteInfo ? (
               <CampsiteInfoForm
                 setToggleCreateCampsiteInfo={setToggleCreateCampsiteInfo}
-                setMarkers={setMarkers}
                 eventMarker={eventMarker}
                 user={user}
               />
@@ -121,7 +120,6 @@ function App() {
 
             {/**Utility Features: Search for a location and pan to current location */}
             <div className={indexStyle.searchContainer}>
-              {/*<button onClick={() => setMarkers([])}>Clear</button> */}
               <Search panTo={panTo} isSignedIn={isSignedIn} />
             </div>
 
@@ -138,6 +136,7 @@ function App() {
               {/**User created markers  */}
               <UserMarkers
                 isSignedIn={isSignedIn}
+                setMarkers={setMarkers}
                 markers={markers}
                 setSelected={setSelected}
               />
