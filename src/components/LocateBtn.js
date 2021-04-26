@@ -1,4 +1,4 @@
-import locateBtnStyle from "../styles/locateBtn.module.css"
+import locateBtnStyle from "../styles/index.module.css"
 
 const Locate = ({ panTo }) => {
   const handleClick = () => {

@@ -7,6 +7,7 @@
   padding: 2rem;
   background: rgba(255, 255, 255, 0.85);
 }
+
 .legendContainer h1 {
   margin-bottom: 1rem;
 }
@@ -28,4 +29,39 @@
 .subtitle {
   font-size: 0.75rem;
   color: #333;
+}
+
+.locateBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  margin: 0;
+  background: none;
+}
+
+.locateBtn img {
+  width: 30px;
+}
+
+@media only screen and (max-width: 355px) {
+  .legendContainer {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 968px) {
+  .legendContainer {
+    position: absolute;
+    top: 70%;
+  }
+  .searchContainer {
+    width: 100%;
+    margin-left: 1rem;
+  }
+
+  .locateBtn img {
+    max-height: 15px;
+    object-fit: contain;
+  }
 }

@@ -21,3 +21,26 @@
   object-fit: contain;
   /* padding: 0.3rem; */
 }
+
+@media only screen and (max-width: 455px) {
+  .parkImgContainer {
+    display: block;
+  }
+
+  .parkImgContainer img {
+    object-fit: contain;
+    max-width: 175px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .parkImgContainer img {
+    max-width: 250px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .parkImgContainer img {
+    max-width: 180px;
+  }
+}

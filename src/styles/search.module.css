@@ -1,7 +1,7 @@
-.searchBar {
+/* .searchBar {
   width: 100%;
   max-width: 400px;
-}
+} */
 
 .searchBar input {
   font-size: 1.4rem;
@@ -16,4 +16,10 @@
 .searchBar p {
   padding-top: 0.3rem;
   font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 968px) {
+  .searchBar input {
+    font-size: 0.8rem;
+  }
 }
