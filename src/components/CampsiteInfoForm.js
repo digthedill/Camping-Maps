@@ -3,17 +3,11 @@ import Geocode from "react-geocode"
 import { v4 as uuidv4 } from "uuid"
 import { db } from "../firebase/firebaseIndex"
 import formStyles from "../styles/forms.module.css"
+import StarRatingComponent from "react-star-rating-component"
+
+import ImageUploader from "./ImageUploader"
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-
-/**
- * 
- *setup support for update document
-
- pre-populate description textarea with value from db
-
- figure out second field (is it needed?)
- */
 
 const CampsiteInfoForm = ({
   setToggleCreateCampsiteInfo,
@@ -23,8 +17,10 @@ const CampsiteInfoForm = ({
   setSelected,
 }) => {
   const [description, setDescription] = useState("")
+  const [rating, setRating] = useState(null)
   const [address, setAddress] = useState("")
   const [editMode, setEditMode] = useState(false)
+  const [imgUrls, setImgUrls] = useState([])
 
   // eventMarker is the event attribute from onClick gMaps
   if (eventMarker) {
@@ -39,6 +35,8 @@ const CampsiteInfoForm = ({
     if (selected) {
       setEditMode(true)
       setDescription(selected.description)
+      setRating(selected.rating)
+      setImgUrls(selected.imgUrls)
     }
   }, [selected])
 
@@ -54,11 +52,11 @@ const CampsiteInfoForm = ({
     return () => {
       window.removeEventListener("keydown", handleEsc)
     }
-  }, [])
+  })
 
-  // possible for users to upload photos?
   const handleSubmit = (e) => {
     e.preventDefault()
+
     let id = uuidv4()
     db.collection("markers")
       .doc(id)
@@ -69,6 +67,8 @@ const CampsiteInfoForm = ({
         time: new Date(),
         user: user.displayName,
         uid: user.uid,
+        rating,
+        imgUrls,
         description,
         address,
       })
@@ -89,6 +89,8 @@ const CampsiteInfoForm = ({
       .set({
         ...selected,
         description,
+        rating,
+        imgUrls,
       })
     setSelected(null)
     setToggleCreateCampsiteInfo(false)
@@ -109,15 +111,28 @@ const CampsiteInfoForm = ({
         </div>
         <h2>Lets hear about</h2>
         <h3>{address}</h3>
+        <div>
+          <StarRatingComponent
+            style={{ margin: "0", padding: "0" }}
+            name="campRating"
+            starCount={5}
+            value={rating}
+            onStarHoverOut={() => setRating((prev) => prev)}
+            onStarClick={(e) => setRating(e)}
+            onStarHover={(e) => setRating(e)}
+          />
+        </div>
         <label htmlFor="description">Description</label>
         <textarea
           id="description"
           name="description"
+          style={{ resize: "none" }}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        {/**<label htmlFor="other">Other</label>
-        <textarea id="other" /> */}
+
+        <ImageUploader setImgUrls={setImgUrls} selected={selected} />
+
         <div className={formStyles.submitContainer}>
           <input
             type="submit"

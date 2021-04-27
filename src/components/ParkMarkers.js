@@ -29,7 +29,9 @@ const ParkMarkers = ({ parks, isSignedIn, setSelectedPark }) => {
               }}
             />
           )
-        } else return
+        }
+
+        return null
       })
     : null
 }

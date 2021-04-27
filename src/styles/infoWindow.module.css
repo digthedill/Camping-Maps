@@ -1,4 +1,8 @@
-.parkImgContainer {
+/* .userInfoContainer {
+  min-width: 550px;
+} */
+
+.imgContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2px;
@@ -11,36 +15,66 @@
   font-weight: 400;
 }
 
-.parkImgContainer img {
+.imgContainer img {
   max-width: 300px;
   max-height: 400px;
 }
 
-.parkImg {
+.image {
   padding: 0.1rem;
   object-fit: contain;
   /* padding: 0.3rem; */
 }
 
+.address {
+  padding: 1rem 0;
+}
+
+.rightAlign {
+  text-align: right;
+}
+
+.description {
+  line-height: 1.4;
+  font-weight: 400;
+  padding: 1rem 0;
+}
+
+.adminContainer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border-radius: 1rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.delete {
+  background: #f44336;
+  color: white;
+}
+
 @media only screen and (max-width: 455px) {
-  .parkImgContainer {
+  .imgContainer {
     display: block;
   }
 
-  .parkImgContainer img {
+  .imgContainer img {
     object-fit: contain;
     max-width: 175px;
   }
 }
 
 @media only screen and (max-width: 750px) {
-  .parkImgContainer img {
+  .imgContainer img {
     max-width: 250px;
   }
 }
 
 @media only screen and (max-width: 660px) {
-  .parkImgContainer img {
+  .imgContainer img {
     max-width: 180px;
   }
 }

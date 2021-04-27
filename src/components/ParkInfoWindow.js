@@ -1,6 +1,6 @@
 import { InfoWindow } from "@react-google-maps/api"
 import extractLatLng from "../utils/extractLatLng"
-import parkStyles from "../styles/park.module.css"
+import parkStyles from "../styles/infoWindow.module.css"
 
 const ParkInfoWindow = ({ selectedPark, setSelectedPark }) => {
   return selectedPark ? (
@@ -19,14 +19,14 @@ const ParkInfoWindow = ({ selectedPark, setSelectedPark }) => {
             Book It!
           </a>
         </p>
-        <div className={parkStyles.parkImgContainer}>
+        <div className={parkStyles.imgContainer}>
           {selectedPark.images.map((img) => {
             return (
               <img
                 key={img.caption}
                 src={img.url}
                 alt={img.altText}
-                className={parkStyles.parkImg}
+                className={parkStyles.image}
               />
             )
           })}
