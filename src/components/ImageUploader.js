@@ -52,7 +52,7 @@ const ImageUploader = ({ setImgUrls, selected, editMode }) => {
       setImgUrls((c) => c.filter((img) => img.id !== id))
   }
 
-  if (selected.imgUrls.length && editMode) {
+  if (selected && editMode) {
     return (
       <div className={style.previewOuterContainer}>
         {selected.imgUrls.map((image) => {

@@ -49,7 +49,7 @@ function App() {
   )
 
   useEffect(() => {
-    const subscribe = () =>
+    const unsubscribe = () =>
       fetch(
         `https://developer.nps.gov/api/v1/campgrounds?&api_key=${process.env.REACT_APP_NPS_API_KEY}&limit=700`
       )
@@ -69,7 +69,7 @@ function App() {
           )
         })
 
-    return subscribe()
+    return unsubscribe()
   }, [])
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -109,9 +109,12 @@ function App() {
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
               className={indexStyle.toggleDashboard}
               onClick={() => setShowDashboard(!showDashboard)}
+              alt="Toggle User Profile"
             />
 
-            {showDashboard ? <Dashboard user={user} /> : null}
+            {showDashboard ? (
+              <Dashboard user={user} setSelected={setSelected} />
+            ) : null}
 
             <Legend
               isSignedIn={isSignedIn}

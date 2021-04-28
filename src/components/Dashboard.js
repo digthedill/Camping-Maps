@@ -4,7 +4,7 @@ import { db } from "../firebase/firebaseIndex"
 import StarRatingComponent from "react-star-rating-component"
 import formatFirstName from "../utils/formatFirstName"
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, setSelected }) => {
   const [campsites, setCampsites] = useState([])
 
   useEffect(() => {
@@ -17,7 +17,11 @@ const Dashboard = ({ user }) => {
         })
       })
       .catch((e) => console.log(e))
-  }, [user.id])
+  }, [user.id, user.uid])
+
+  const openCampsite = (campsite) => {
+    setSelected(campsite)
+  }
 
   return user ? (
     <div className={style.container}>
@@ -34,6 +38,7 @@ const Dashboard = ({ user }) => {
                       <img
                         src={campsite.imgUrls[0].url}
                         className={style.thumbnail}
+                        alt={campsite.address}
                       />
                     </div>
                   ) : null}
@@ -44,7 +49,12 @@ const Dashboard = ({ user }) => {
                         name="rating"
                         value={campsite.rating}
                       />
-                      <button className={style.viewBtn}>View</button>
+                      <button
+                        className={style.viewBtn}
+                        onClick={() => openCampsite(campsite)}
+                      >
+                        View
+                      </button>
                     </div>
                   </div>
                 </div>
