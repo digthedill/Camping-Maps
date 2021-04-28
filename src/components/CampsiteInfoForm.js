@@ -131,7 +131,11 @@ const CampsiteInfoForm = ({
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <ImageUploader setImgUrls={setImgUrls} selected={selected} />
+        <ImageUploader
+          setImgUrls={setImgUrls}
+          selected={selected}
+          editMode={editMode}
+        />
 
         <div className={formStyles.submitContainer}>
           <input

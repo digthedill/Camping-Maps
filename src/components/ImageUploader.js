@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 
 import style from "../styles/forms.module.css"
 
-const ImageUploader = ({ setImgUrls, selected }) => {
+const ImageUploader = ({ setImgUrls, selected, editMode }) => {
   const [images, setImages] = useState([])
   const [progress, setProgress] = useState(0)
   const fileSelect = useRef(null)
@@ -24,13 +24,13 @@ const ImageUploader = ({ setImgUrls, selected }) => {
     // Update progress (can be used to show progress indicator)
     xhr.upload.addEventListener("progress", (e) => {
       setProgress(Math.round((e.loaded * 100.0) / e.total))
-      console.log(Math.round((e.loaded * 100.0) / e.total))
+      // console.log(Math.round((e.loaded * 100.0) / e.total))
     })
 
     xhr.onreadystatechange = (e) => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         const response = JSON.parse(xhr.responseText)
-        console.log(response)
+        // console.log(response)
         const img = {
           url: response.secure_url,
           id: response.asset_id,
@@ -51,30 +51,35 @@ const ImageUploader = ({ setImgUrls, selected }) => {
     if (window.confirm("Are you sure you want to delete the image?"))
       setImgUrls((c) => c.filter((img) => img.id !== id))
   }
+
+  if (selected.imgUrls.length && editMode) {
+    return (
+      <div className={style.previewOuterContainer}>
+        {selected.imgUrls.map((image) => {
+          return (
+            <div className={style.imgPreviewContainer} key={image.id}>
+              <button
+                onClick={() => removeImage(image.id)}
+                className={style.removeImg}
+              >
+                x
+              </button>
+              <img
+                src={image.url.replace("upload/", "upload/w_600/")}
+                // style={{ height: 400, width: 600 }}
+                className={style.imagePreview}
+                alt="thumbnail from user"
+              />
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
   return images.length ? (
     <div className={style.previewOuterContainer}>
       {images.map((image) => {
-        return (
-          <div className={style.imgPreviewContainer} key={image.id}>
-            <button
-              onClick={() => removeImage(image.id)}
-              className={style.removeImg}
-            >
-              x
-            </button>
-            <img
-              src={image.url.replace("upload/", "upload/w_600/")}
-              // style={{ height: 400, width: 600 }}
-              className={style.imagePreview}
-              alt="thumbnail from user"
-            />
-          </div>
-        )
-      })}
-    </div>
-  ) : selected.imgUrls.length ? (
-    <div className={style.previewOuterContainer}>
-      {selected.imgUrls.map((image) => {
         return (
           <div className={style.imgPreviewContainer} key={image.id}>
             <button
@@ -114,3 +119,7 @@ const ImageUploader = ({ setImgUrls, selected }) => {
 }
 
 export default ImageUploader
+
+// if images.length
+// show img preview
+// else if selected.imgUrls.length

@@ -2,12 +2,12 @@ import { useState, useCallback, useRef, useEffect } from "react"
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"
 import { FirebaseAuthConsumer } from "@react-firebase/auth"
 
+import Dashboard from "./components/Dashboard"
 import Legend from "./components/Legend"
 import AuthForm from "./components/AuthForm"
 import Search from "./components/Search"
 import LocateBtn from "./components/LocateBtn"
 import CampsiteInfoForm from "./components/CampsiteInfoForm"
-
 import ParkInfoWindow from "./components/ParkInfoWindow"
 import UserInfoWindow from "./components/UserInfoWindow"
 import UserMarkers from "./components/UserMarkers"
@@ -37,6 +37,7 @@ const options = (createMode) => {
 }
 
 function App() {
+  const [showDashboard, setShowDashboard] = useState(false)
   const [createMarkerMode, setCreateMarkerMode] = useState(false)
   const [markers, setMarkers] = useState([])
   const [parks, setParks] = useState([])
@@ -98,13 +99,19 @@ function App() {
 
   if (loadError) return "Error loading maps"
   if (!isLoaded) return "Loading maps..."
-
   return (
     <FirebaseAuthConsumer>
       {({ isSignedIn, user }) => {
         return (
           <div>
             {!isSignedIn ? <AuthForm /> : null}
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
+              className={indexStyle.toggleDashboard}
+              onClick={() => setShowDashboard(!showDashboard)}
+            />
+
+            {showDashboard ? <Dashboard user={user} /> : null}
 
             <Legend
               isSignedIn={isSignedIn}
