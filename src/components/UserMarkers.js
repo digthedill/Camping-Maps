@@ -25,7 +25,7 @@ const UserMarkers = ({ setMarkers, markers, isSignedIn, setSelected }) => {
           }}
           icon={{
             url: "https://pngimg.com/uploads/tent/tent_PNG47.png",
-            scaledSize: new window.google.maps.Size(30, 30),
+            scaledSize: new window.google.maps.Size(15, 15),
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(15, 15),
           }}
