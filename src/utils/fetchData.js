@@ -1,36 +1,30 @@
-// const limitPerPage = 20
-// const url = `https://ridb.recreation.gov/api/v1/campsites/?apikey=ba32d887-2069-423c-958c-3181bd6cd33b`
+const url = `https://campsite-proxy-server.herokuapp.com/`
 
-// const getParks = async (pageNo = 0) => {
-//   let actualUrl = url + `&offset=${pageNo}&limit=${limitPerPage}`
-//   try {
-//     const config = {
-//       method: "get",
-//       mode: "no-cors",
-//     }
-//     await fetch(actualUrl, config).then(async (res) => {
-//       const json = await res.json()
+async function fetchCampsites(offset = 0) {
+  try {
+    let paginatedUrl = url + `?offset=${offset}`
+    const response = await fetch(paginatedUrl)
+    let data = await response.json()
+    // console.log(data)
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-//       if (res.ok) {
-//         return json
-//       }
-//       throw await json
-//     })
-//   } catch (e) {
-//     console.log("ERROR:", e)
-//   }
-// }
+async function fetchAllCampsites(offset = 0) {
+  try {
+    const { RECDATA } = await fetchCampsites(offset)
+    // console.log("Retreiving data from API for offset : " + offset)
+    // console.log(RECDATA)
+    if (RECDATA.length) {
+      return RECDATA.concat(fetchAllCampsites(offset + 50))
+    } else {
+      return RECDATA
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-// const getAllParks = async (pageNo = 0) => {
-//   const results = await getParks(pageNo)
-//   console.log(results)
-//   console.log("Retreiving data from API for page : " + pageNo)
-
-//   if (results.length > 0) {
-//     return results.concat(await getAllParks(pageNo + 20))
-//   } else {
-//     return results
-//   }
-// }
-
-// export default getParks
+export { fetchAllCampsites, fetchCampsites }

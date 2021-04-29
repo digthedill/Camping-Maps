@@ -16,6 +16,9 @@ import ParkMarkers from "./components/ParkMarkers"
 import indexStyle from "./styles/index.module.css"
 import mapStyles from "./styles/mapStyles"
 
+// import { fetchCampsites, fetchAllCampsites } from "./utils/fetchData"  data wasn't descriptive enough
+// saving a record for recursive fetch calls
+
 // Map options
 const libraries = ["places"]
 const mapContainerStyle = {
