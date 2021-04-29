@@ -115,7 +115,7 @@ function App() {
               alt="Toggle User Profile"
             />
 
-            {showDashboard ? (
+            {isSignedIn && showDashboard ? (
               <Dashboard user={user} setSelected={setSelected} />
             ) : null}
 

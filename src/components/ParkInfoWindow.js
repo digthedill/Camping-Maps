@@ -20,10 +20,10 @@ const ParkInfoWindow = ({ selectedPark, setSelectedPark }) => {
           </a>
         </p>
         <div className={parkStyles.imgContainer}>
-          {selectedPark.images.map((img) => {
+          {selectedPark.images.map((img, i) => {
             return (
               <img
-                key={img.caption}
+                key={img.caption + i}
                 src={img.url}
                 alt={img.altText}
                 className={parkStyles.image}
