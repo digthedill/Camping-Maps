@@ -7,7 +7,7 @@ Project utilizes Google Maps Javascript API in a React environment.
 - React
 - Firebase Auth
 - Firebase DB
-- Module CSS
+- CSS Modules
 - National Parks Services API
 - Cloudinary Image Upload
 
