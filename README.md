@@ -1,6 +1,6 @@
 ### Pitch A Tent (working title)
 
-Project utilizes Google Maps Javascript API in a React environment.
+Project utilizes Google Maps Javascript API in a React environment. Features CRUD operations using Firebase.
 
 ## Tech:
 
