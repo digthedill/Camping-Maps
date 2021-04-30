@@ -17,6 +17,7 @@ import indexStyle from "./styles/index.module.css"
 import mapStyles from "./styles/mapStyles"
 
 import userIcon from "./assets/userIcon.png"
+import CreateModeSwitch from "./components/CreateModeSwitch"
 
 // import { fetchCampsites, fetchAllCampsites } from "./utils/fetchData"  data wasn't descriptive enough
 // saving a record for recursive fetch calls
@@ -139,6 +140,12 @@ function App() {
             {/**Utility Features: Search for a location and pan to current location */}
             <div className={indexStyle.searchContainer}>
               <Search panTo={panTo} isSignedIn={isSignedIn} />
+              <div className={indexStyle.mobileCreateToggle}>
+                <CreateModeSwitch
+                  createMarkerMode={createMarkerMode}
+                  setCreateMarkerMode={setCreateMarkerMode}
+                />
+              </div>
             </div>
             <div className={indexStyle.auxContainer}>
               <div className={indexStyle.locateBtn}>

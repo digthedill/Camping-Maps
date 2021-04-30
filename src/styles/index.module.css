@@ -17,12 +17,19 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+/* show below 1000px */
+.mobileCreateToggle {
+  display: none;
 }
 
 .legendItem {
   display: flex;
   gap: 1rem;
   align-items: center;
+
   padding: 0.3rem 0;
 }
 
@@ -60,16 +67,12 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 355px) {
-  .legendContainer {
-    width: 180px;
-  }
-}
-
 @media only screen and (max-width: 968px) {
+  .mobileCreateToggle {
+    display: block;
+  }
   .legendContainer {
-    position: absolute;
-    top: 70%;
+    display: none;
   }
   .searchContainer {
     width: 100%;

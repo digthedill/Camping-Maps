@@ -1,4 +1,4 @@
-import Switch from "react-switch"
+import CreateModeSwitch from "./CreateModeSwitch"
 import indexStyle from "../styles/index.module.css"
 
 const Legend = ({ isSignedIn, setCreateMarkerMode, createMarkerMode }) => {
@@ -27,20 +27,10 @@ const Legend = ({ isSignedIn, setCreateMarkerMode, createMarkerMode }) => {
       </div>
       {isSignedIn ? (
         <>
-          <div className={indexStyle.legendItem}>
-            <label>
-              <Switch
-                onChange={() => setCreateMarkerMode(!createMarkerMode)}
-                checked={createMarkerMode}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                width={40}
-                height={20}
-                handleDiameter={15}
-              />
-            </label>
-            <p>Create Mode</p>
-          </div>
+          <CreateModeSwitch
+            createMarkerMode={createMarkerMode}
+            setCreateMarkerMode={setCreateMarkerMode}
+          />
           <p className={indexStyle.subtitle}>(Toggle to save a campsite)</p>
         </>
       ) : null}
