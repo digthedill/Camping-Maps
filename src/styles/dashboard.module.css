@@ -9,9 +9,11 @@
   margin-bottom: 1.4rem;
 }
 .dashboard {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   padding: 1rem;
-  /* border-top: 1px solid black; */
+  margin: 1rem auto;
+  border: 1px solid black;
+  border-radius: 1rem;
 }
 
 .campsiteBox {
@@ -36,6 +38,7 @@
   border: none;
   background: #3737ff;
   color: white;
+  cursor: pointer;
 }
 .ratingAndBtn {
   display: flex;
@@ -43,4 +46,34 @@
   gap: 1.4rem;
 }
 
+.exitContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+.exitBtn {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  font-size: 1rem;
+  background: #f44336;
+  color: white;
+  cursor: pointer;
+  border-radius: 3rem;
+}
 /* max width = 1236 */
+
+@media only screen and (max-width: 1236px) {
+  .container {
+    left: auto;
+    top: 35%;
+  }
+}
+
+@media only screen and (max-width: 355px) {
+  .container {
+    width: auto;
+    height: auto;
+    position: fixed;
+    left: 0;
+    top: 30%;
+  }
+}

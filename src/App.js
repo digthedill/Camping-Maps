@@ -16,6 +16,8 @@ import ParkMarkers from "./components/ParkMarkers"
 import indexStyle from "./styles/index.module.css"
 import mapStyles from "./styles/mapStyles"
 
+import userIcon from "./assets/userIcon.png"
+
 // import { fetchCampsites, fetchAllCampsites } from "./utils/fetchData"  data wasn't descriptive enough
 // saving a record for recursive fetch calls
 
@@ -107,24 +109,22 @@ function App() {
       {({ isSignedIn, user }) => {
         return (
           <div>
-            {!isSignedIn ? <AuthForm /> : null}
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/1200px-Circle-icons-profile.svg.png"
-              className={indexStyle.toggleDashboard}
-              onClick={() => setShowDashboard(!showDashboard)}
-              alt="Toggle User Profile"
-            />
+            {!isSignedIn && <AuthForm />}
 
             {isSignedIn && showDashboard ? (
-              <Dashboard user={user} setSelected={setSelected} />
+              <Dashboard
+                user={user}
+                setSelected={setSelected}
+                setShowDashboard={setShowDashboard}
+              />
             ) : null}
-
-            <Legend
-              isSignedIn={isSignedIn}
-              setCreateMarkerMode={setCreateMarkerMode}
-              createMarkerMode={createMarkerMode}
-            />
-
+            {isSignedIn && (
+              <Legend
+                isSignedIn={isSignedIn}
+                setCreateMarkerMode={setCreateMarkerMode}
+                createMarkerMode={createMarkerMode}
+              />
+            )}
             {/**Form for users to document their camp experiences */}
             {toggleCreateCampsiteInfo ? (
               <CampsiteInfoForm
@@ -140,8 +140,19 @@ function App() {
             <div className={indexStyle.searchContainer}>
               <Search panTo={panTo} isSignedIn={isSignedIn} />
             </div>
-
-            <LocateBtn panTo={panTo} />
+            <div className={indexStyle.auxContainer}>
+              <div className={indexStyle.locateBtn}>
+                <LocateBtn panTo={panTo} />
+              </div>
+              {isSignedIn && (
+                <img
+                  src={userIcon}
+                  className={indexStyle.toggleDashboard}
+                  onClick={() => setShowDashboard(!showDashboard)}
+                  alt="Toggle User Profile"
+                />
+              )}
+            </div>
 
             <GoogleMap
               mapContainerStyle={mapContainerStyle}

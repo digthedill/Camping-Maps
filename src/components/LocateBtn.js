@@ -1,10 +1,9 @@
-import locateBtnStyle from "../styles/index.module.css"
+import compass from "../assets/compass.png"
 
 const Locate = ({ panTo }) => {
   const handleClick = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position)
         panTo({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -14,11 +13,9 @@ const Locate = ({ panTo }) => {
     )
   }
   return (
-    <div className={locateBtnStyle.locateBtn}>
-      <button onClick={handleClick}>
-        <img src="https://freesvg.org/img/CompassRose.png" alt="" />
-      </button>
-    </div>
+    <button onClick={handleClick}>
+      <img src={compass} alt="locate yourself" />
+    </button>
   )
 }
 
