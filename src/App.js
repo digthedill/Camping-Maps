@@ -13,6 +13,8 @@ import UserInfoWindow from "./components/UserInfoWindow"
 import UserMarkers from "./components/UserMarkers"
 import ParkMarkers from "./components/ParkMarkers"
 
+import useWindowDimensions from "./utils/useWindowDimensions"
+
 import indexStyle from "./styles/index.module.css"
 import mapStyles from "./styles/mapStyles"
 
@@ -32,12 +34,13 @@ const center = {
   lat: 37.0902,
   lng: -95.7129,
 }
+
 // enable mouse change for create mode
-const options = (createMode) => {
+const options = (createMode, mobileBoolForZoom) => {
   return {
     styles: mapStyles,
     disableDefaultUI: true,
-    zoomControl: true,
+    zoomControl: mobileBoolForZoom,
     draggableCursor: createMode ? "pointer" : "default",
   }
 }
@@ -53,6 +56,10 @@ function App() {
   const [toggleCreateCampsiteInfo, setToggleCreateCampsiteInfo] = useState(
     false
   )
+
+  const { width } = useWindowDimensions()
+
+  const responsiveZoomControls = width < 968 ? false : true
 
   useEffect(() => {
     const unsubscribe = () =>
@@ -165,7 +172,7 @@ function App() {
               mapContainerStyle={mapContainerStyle}
               zoom={5}
               center={center}
-              options={options(createMarkerMode)}
+              options={options(createMarkerMode, responsiveZoomControls)}
               onClick={onMapClick}
               onLoad={onMapLoad}
             >
