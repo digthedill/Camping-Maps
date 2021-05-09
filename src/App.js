@@ -13,7 +13,8 @@ import UserInfoWindow from "./components/UserInfoWindow"
 import UserMarkers from "./components/UserMarkers"
 import ParkMarkers from "./components/ParkMarkers"
 
-import useWindowDimensions from "./utils/useWindowDimensions"
+import useWindowDimensions from "./hooks/useWindowDimensions"
+import useFetch from "./hooks/useFetch"
 
 import indexStyle from "./styles/index.module.css"
 import mapStyles from "./styles/mapStyles"
@@ -61,29 +62,26 @@ function App() {
 
   const responsiveZoomControls = width < 968 ? false : true
 
-  useEffect(() => {
-    const unsubscribe = () =>
-      fetch(
-        `https://developer.nps.gov/api/v1/campgrounds?&api_key=${process.env.REACT_APP_NPS_API_KEY}&limit=700`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setParks(
-            data.data.map((park) => {
-              return {
-                id: park.id,
-                latLng: park.latLong,
-                name: park.name,
-                images: park.images,
-                url: park.url,
-                description: park.description,
-              }
-            })
-          )
-        })
+  const url = `https://developer.nps.gov/api/v1/campgrounds?&api_key=${process.env.REACT_APP_NPS_API_KEY}&limit=700`
 
-    return unsubscribe()
-  }, [])
+  const { data } = useFetch(url)
+
+  useEffect(() => {
+    if (data.data) {
+      setParks(
+        data.data.map((park) => {
+          return {
+            id: park.id,
+            latLng: park.latLong,
+            name: park.name,
+            images: park.images,
+            url: park.url,
+            description: park.description,
+          }
+        })
+      )
+    }
+  }, [data])
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
